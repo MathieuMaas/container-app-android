@@ -10,7 +10,7 @@ AndroidShortcutsPlugin.prototype.createDynamicShortcut = function (params, succe
     [params]
   );
 };
-AndroidShortcutsPlugin.prototype.supportsPinned = function (params, successCallback, errorCallback) {
+AndroidShortcutsPlugin.prototype.supportsPinned = function (successCallback, errorCallback) {
   cordova.exec(
     successCallback,
     errorCallback,
