@@ -39,16 +39,6 @@ public class AndroidShortcutsPlugin extends CordovaPlugin {
             boolean supported = this.supportsPinned();
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK,supported));
 
-        }else if("getSelectedShortcut".equals(action)) {
-            JSONObject response = new JSONObject();
-            try {
-                response.put("action", ShortcutHelperActivity.ACTION);
-                callbackContext.success(response);
-                ShortcutHelperActivity.ACTION = null;
-            } catch (JSONException e) {
-                e.printStackTrace();
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION));
-            }
         } else if("createDynamicShortcut".equals(action)) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             Intent intent = new Intent(context, MainActivity.class);
