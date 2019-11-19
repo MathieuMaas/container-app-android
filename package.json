@@ -1,0 +1,33 @@
+{
+  "name": "container-app-android",
+  "version": "1.0.0",
+  "description": "Enables pinned shortcuts to android homescreen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "cordova": {
+    "id": "container-app-android"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MathieuMaas/container-app-android.git"
+  },
+  "keywords": [
+    "android",
+    "container",
+    "app",
+    "pinned-shortcuts"
+  ],
+  "author": "Mathieu Maas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MathieuMaas/container-app-android/issues"
+  },
+  "homepage": "https://github.com/MathieuMaas/container-app-android#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "fs-extra": "5.0.0"
+  }
+}

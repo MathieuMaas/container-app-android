@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  id="cordova-plugin-kunder-android-shortcuts"
+  version="1.0.0">
+  <name>cordova-container-app</name>
+  <description>Plugin that created pinned android shortcuts on users homescreen</description>
+  <author>Mathieu Maas</author>
+  <keywords>plugin,shortcuts,android</keywords>
+  <engines>
+    <engine name="cordova" version=">=6.0.0" />
+  </engines>
+
+  <js-module src="www/AndroidShortcutsPlugin.js" name="AndroidShortcutsPlugin">
+    <merges target="AndroidShortcutsPlugin" />
+  </js-module>
+  
+
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="AndroidShortcutsPlugin" >
+        <param name="android-package" value="fc.android-pinned-short-cuts.AndroidShortcutsPlugin"/>
+      </feature>
+    </config-file>
+    <source-file src="src/android/AndroidShortcutsPlugin.java" target-dir="src/android-pinned-short-cuts" />
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <activity android:name=".ShortcutHelperActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+    </config-file>
+  </platform>
+</plugin>
