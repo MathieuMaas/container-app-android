@@ -1,15 +1,6 @@
 function AndroidShortcutsPlugin() {
 }
 
-AndroidShortcutsPlugin.prototype.getSelectedShortcut = function (successCallback, errorCallback) {
-  cordova.exec(
-    successCallback,
-    errorCallback,
-    "AndroidShortcutsPlugin",
-    "getSelectedShortcut",
-    []
-  );
-};
 AndroidShortcutsPlugin.prototype.createDynamicShortcut = function (params, successCallback, errorCallback) {
   cordova.exec(
     successCallback,
@@ -19,15 +10,14 @@ AndroidShortcutsPlugin.prototype.createDynamicShortcut = function (params, succe
     [params]
   );
 };
-AndroidShortcutsPlugin.prototype.removeAllDynamicShortcuts = function (successCallback, errorCallback) {
+AndroidShortcutsPlugin.prototype.supportsPinned = function (params, successCallback, errorCallback) {
   cordova.exec(
     successCallback,
     errorCallback,
     "AndroidShortcutsPlugin",
-    "removeAllDynamicShortcuts",
+    "supportsPinned",
     []
   );
 };
-
 var AndroidShortcutsPlugin = new AndroidShortcutsPlugin();
 module.exports = AndroidShortcutsPlugin;
