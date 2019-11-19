@@ -18,10 +18,10 @@
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="AndroidShortcutsPlugin" >
-        <param name="android-package" value="fc.android-pinned-short-cuts.AndroidShortcutsPlugin"/>
+        <param name="android-package" value="fc.shortcuts.AndroidShortcutsPlugin"/>
       </feature>
     </config-file>
-    <source-file src="src/android/AndroidShortcutsPlugin.java" target-dir="src/android-pinned-short-cuts" />
+    <source-file src="src/android/AndroidShortcutsPlugin.java" target-dir="src/fc/shortcuts" />
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
         <activity android:name=".ShortcutHelperActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </config-file>
