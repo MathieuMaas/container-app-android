@@ -1,6 +1,7 @@
-package fc.android-pinned-short-cuts;
+package fc.shortcuts;
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
@@ -10,6 +11,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
 import android.util.Base64;
 
+import androidx.core.content.pm.ShortcutManagerCompat;
+
+import com.dewiOnline.app.MainActivity;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
@@ -18,9 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
-
-import com.dewiOnline.app.ShortcutHelperActivity;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AndroidShortcutsPlugin extends CordovaPlugin {
 
@@ -31,7 +35,11 @@ public class AndroidShortcutsPlugin extends CordovaPlugin {
     @TargetApi(25)
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) {
         context = this.cordova.getActivity().getApplicationContext();
-        if("getSelectedShortcut".equals(action)) {
+        if("supportsPinned".equals(action)) {
+            boolean supported = this.supportsPinned();
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK,supported));
+
+        }else if("getSelectedShortcut".equals(action)) {
             JSONObject response = new JSONObject();
             try {
                 response.put("action", ShortcutHelperActivity.ACTION);
@@ -43,22 +51,14 @@ public class AndroidShortcutsPlugin extends CordovaPlugin {
             }
         } else if("createDynamicShortcut".equals(action)) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            if( (shortcutManager.getDynamicShortcuts().size() + shortcutManager.getManifestShortcuts().size()) >= 4) {
-                /**
-                 * TODO
-                 * Override one of the dynamic shortcuts
-                 */
-                callbackContext.error("You can not create more than 4 shortcuts");
-                return false;
-            }
-            Intent intent = new Intent(context, ShortcutHelperActivity.class);
+            Intent intent = new Intent(context, MainActivity.class);
+
             try {
                 JSONObject jsonObject = new JSONObject(args.getString(0));
                 intent.setAction(jsonObject.getString("action"));
                 String icon = jsonObject.getString("icon");
                 ShortcutInfo shortcutInfo = null;
 
-                if(jsonObject.has("iconIsBase64") && jsonObject.getBoolean("iconIsBase64")) {
                     byte[] decodedString = Base64.decode(icon, Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     shortcutInfo = new ShortcutInfo.Builder(context, jsonObject.getString("id"))
@@ -67,28 +67,32 @@ public class AndroidShortcutsPlugin extends CordovaPlugin {
                             .setIcon(Icon.createWithBitmap(decodedByte))
                             .setIntent(intent)
                             .build();
-                } else {
-                    shortcutInfo = new ShortcutInfo.Builder(context, jsonObject.getString("id"))
-                            .setShortLabel(jsonObject.getString("shortLabel"))
-                            .setLongLabel(jsonObject.getString("longLabel"))
-                            .setIcon(Icon.createWithResource(context, context.getResources().getIdentifier(icon, "drawable", context.getPackageName())))
-                            .setIntent(intent)
-                            .build();
+                if(shortcutManager.getPinnedShortcuts().size() >= 1) {
+                    ArrayList <ShortcutInfo> list = new ArrayList<ShortcutInfo>();
+                    list.add(shortcutInfo);
+                    shortcutManager.updateShortcuts(list);
+                    callbackContext.success();
+                    return true;
                 }
-                shortcutManager.setDynamicShortcuts(Arrays.asList(shortcutInfo));
+                Intent pinShortcutCallback = shortcutManager.createShortcutResultIntent(shortcutInfo);
+                PendingIntent successCallback = PendingIntent.getBroadcast(context, 0, pinShortcutCallback,0);
+                shortcutManager.requestPinShortcut(shortcutInfo, successCallback.getIntentSender());
+
+
                 callbackContext.success();
             } catch (JSONException e) {
                 e.printStackTrace();
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR));
             }
 
-        } else if("removeAllDynamicShortcuts".equals(action)) {
-            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            shortcutManager.removeAllDynamicShortcuts();
-            callbackContext.success();
         } else {
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.INVALID_ACTION));
         }
         return true;
+    }
+
+    private boolean supportsPinned(){
+        Context context = this.cordova.getActivity().getApplicationContext();
+        return ShortcutManagerCompat.isRequestPinShortcutSupported(context);
     }
 }
