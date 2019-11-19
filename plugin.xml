@@ -21,9 +21,6 @@
         <param name="android-package" value="fc.shortcuts.AndroidShortcutsPlugin"/>
       </feature>
     </config-file>
-    <source-file src="src/android/AndroidShortcutsPlugin.java" target-dir="src/fc/shortcuts" />
-    <config-file target="AndroidManifest.xml" parent="/manifest/application">
-        <activity android:name="fc.shortcuts.ShortcutHelperActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-    </config-file>
+    <source-file src="src/android/AndroidShortcutsPlugin.java" target-dir="src/fc/shortcuts" />   
   </platform>
 </plugin>
