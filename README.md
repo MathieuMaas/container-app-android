@@ -1,6 +1,6 @@
 # Cordova Android Pinned Shortcuts Plugin
 
-This Cordova Plugin allows you to create and update Android Static Shortcuts saving in memory the selected one and get this action to do something in the base application. Tested on ionic 1, 2 and 3 based projects.
+This Cordova Plugin allows you to create and update Android Pinned shortcuts with a custom icon and name. 
 
 ## Installing plugin
 
@@ -22,7 +22,7 @@ To improve the app launch performance you should set the following code into con
 
 ### Create a pinned shortcut
 
-This plugin provides you the following method to create shortcuts dynamically (on runtime):
+This plugin provides you the following method to create pinned shortcuts (on runtime):
 
 ````
 AndroidShortcutsPlugin.createPinnedShortcut(
@@ -40,11 +40,14 @@ AndroidShortcutsPlugin.createPinnedShortcut(
 
 ### Check if android supports
 
-Use the following method to remove all dynamic shortcuts. The static shortcuts will not be affected:
+Use the following method check if android supports pinned shortcuts
 
 ````
-AndroidShortcutsPlugin.removeAllDynamicShortcuts(
-    successCallback,
-    errorCallback
-);````
+	AndroidShortcutsPlugin.supportsPinned(
+                function (supported) {
+                        if (supported) {
+                                //create the pinned shortcut
+                        }
+        });
+````
 
