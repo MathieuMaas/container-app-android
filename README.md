@@ -17,7 +17,8 @@ To improve the app launch performance you should set the following code into con
         <preference name="AndroidLaunchMode" value="singleInstance" />
     ...
 ````
-
+## Important
+The Mainactivity location changes each project, so make sure you target the right instance
 ## Pinned Shortcuts
 
 ### Create a pinned shortcut
