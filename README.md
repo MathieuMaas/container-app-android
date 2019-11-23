@@ -43,11 +43,12 @@ AndroidShortcutsPlugin.createPinnedShortcut(
 Use the following method check if android supports pinned shortcuts
 
 ````
-	AndroidShortcutsPlugin.supportsPinned(
-                function (supported) {
-                        if (supported) {
-                                //create the pinned shortcut
-                        }
-        });
+AndroidShortcutsPlugin.supportsPinned(
+	function (supported) {
+		if (supported) {
+		//create the pinned shortcut
+		}
+	});
+});
 ````
 
