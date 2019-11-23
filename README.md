@@ -19,6 +19,10 @@ To improve the app launch performance you should set the following code into con
 ````
 ## Important
 The Mainactivity location changes each project, so make sure you target the right instance
+````
+//Change appname in src/android/AndroidShortcutsPlugin.java to your config app name
+import com.{app_name_here}.app.MainActivity;
+````
 ## Pinned Shortcuts
 
 ### Create a pinned shortcut
