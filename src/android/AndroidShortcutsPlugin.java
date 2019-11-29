@@ -13,7 +13,7 @@ import android.util.Base64;
 
 import androidx.core.content.pm.ShortcutManagerCompat;
 //Change appname to your config app name
-import nl.dewiOnline.app.MainActivity;
+import com.dewiOnline.app.MainActivity;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
