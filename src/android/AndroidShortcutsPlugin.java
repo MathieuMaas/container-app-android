@@ -32,7 +32,7 @@ public class AndroidShortcutsPlugin extends CordovaPlugin {
     private Context context = null;
     public AndroidShortcutsPlugin(){}
 
-    @TargetApi(25)
+    @TargetApi(26)
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) {
         context = this.cordova.getActivity().getApplicationContext();
         if("supportsPinned".equals(action)) {
