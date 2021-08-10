@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   id="cordova-plugin-app-shortcuts"
   version="1.0.0">
-  <name>cordova-container-app</name>
+  <name>App Shortcuts</name>
   <description>Plugin that created pinned android shortcuts on users homescreen</description>
   <author>Mathieu Maas</author>
   <keywords>plugin,shortcuts,android</keywords>
